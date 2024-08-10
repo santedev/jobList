@@ -1,0 +1,147 @@
+package components
+
+import (
+  "strings"
+  "fmt"
+  t "jobList/scrape/types"
+)
+func hxValsQuery (query string, page string) string {
+  arr := []string{"computrabajo", "indeed"}
+  var str strings.Builder
+  str.WriteString(`{ "data": { `)
+  for i, s := range arr {
+    i := i
+    str.WriteString(fmt.Sprintf(`"%s": {"query": "%s", "page": "%s"}`, s, query, page))
+    if i != len(arr) - 1 {
+      str.WriteString(",")
+    } 
+  }
+  str.WriteString(fmt.Sprintf(`}, "sites": "%s" }`, strings.Join(arr, ",")))
+  return str.String()
+}
+
+templ Jobs(job t.JobStrct) {
+  <a href={templ.SafeURL(job.JobLink)} class="flex fade-in flex-col justify-between border p-3 w-full"> 
+  <div class="flex flex-col">
+    if len(job.Title) > 0 {
+      <div class="flex justify-between">
+        <h1 class="text-2xl mr-2 font-bond">{job.Title}</h1>
+        @Favorite(job)
+      </div>
+    }
+    if len(job.Company) > 0 {
+      <h2 class="text-sm text-slate-400">{job.Company}</h2>
+    }
+    if len(job.Salary) > 0 {
+      <h3 class="text">{job.Salary}</h3>
+    }
+    if len(job.Details) > 250 {
+      <p class="text-base" content={job.Details} clicked="false">
+        {job.Details[:200]+"..."}      
+        <span class="text-slate-400" onCLick="readMore(event, this)">read more...</span>      
+      </p>
+    } else if len(job.Details) > 0 {
+      <p class="text-base" content={job.Details}>
+        {job.Details}
+      </p>
+    }   
+    if len(job.Location) > 250 {
+      <div class="p-1 invisible" role="none">-</div>
+      <p class="text-base" content={job.Location} clicked="false">
+        {job.Location[:100]+"..."}      
+        <span class="text-slate-400" onCLick="readMore(event, this)">read more...</span>      
+      </p>
+    } else if len(job.Location) > 0 {
+      <h3 class="text-base" content={job.Location}>
+        {job.Location}
+      </h3>
+    }
+    if len(job.Place) > 0 {
+      <h3>{job.Place}</h3>
+    }
+    if len(job.ApplyVia) > 0 {
+      <h3 class="text-xs">{job.ApplyVia}</h3>
+    }
+    if len(job.Modality) > 0 {
+      <p class="text-xs">{job.Modality}</p>
+    }
+    </div>
+    if len(job.Site) > 0  {
+      <div class="flex justify-between">
+        <h4 class="text-slate-400 text-xs">{job.Site}</h4>                
+      if len(job.Date) > 0 {
+        <h4 class="text-slate-400 font-light text-xs">{job.Date}</h4>
+      }
+      </div>
+    } 
+  </a>
+}
+
+templ ImageLoader(){
+  <div class="htmx-indicator mb-2 mx-auto aspect-square" id="loader">             
+  </div>
+}
+
+templ SendAgain(query string, page string){
+  <form
+      class="invisible formFetchJobs w-full p-1"     
+      hx-target="#container" 
+      hx-indicator="#loader"
+      hx-ext="remove"      
+      hx-vals={ hxValsQuery(query, page) }
+    >delete</form>
+}
+
+
+templ NoJobsFound(){
+  <h1 class="text-center text-slate-400 mx-auto w-full">no jobs found 404</h1>
+}
+
+func setPathSavedJobs(offer t.JobStrct) string {
+  if offer.Saved == "saved" {
+    return "/job/unsave"
+  }
+  if offer.Saved == "unsaved" {
+    return "/job/save"
+  } 
+  if offer.Saved == "login" {
+    return "/login"
+  }
+  return "/login"
+}
+
+func setClassSavedJobs(offer t.JobStrct) string {
+  if offer.Saved == "saved" {
+    return "saved"
+  }
+  return "unsaved"
+}
+
+func setValsSavedJobs(offer t.JobStrct) string {
+  if offer.Saved == "saved" || offer.Saved == "unsaved" {
+    return fmt.Sprintf(`{"jobLink": "%s"}`, offer.JobLink)
+  }
+
+  return ""
+}
+
+templ Favorite(offer t.JobStrct){  
+  <span 
+    class="pointer pt-1.5 pr-1"
+    path={ setPathSavedJobs(offer) }
+    hx-vals={ setValsSavedJobs(offer) }
+    onCLick="onClickSavedJobs(event, this)"
+  >
+    <svg 
+      class={ fmt.Sprintf("favorite-icon %s", setClassSavedJobs(offer)) } 
+      version="1.1" 
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:svg="http://www.w3.org/2000/svg"
+      viewBox="0 0 5.4352005 5.1067581"
+      height="18.791426"
+      width="20.000002"
+      xml:space="preserve">
+        <path d="M 4.7452664,0.43722373 C 4.4900296,0.23725265 4.2083742,0.135839 3.9081177,0.135839 3.5292741,0.135839 3.1200534,0.30200621 2.7175982,0.61798821 2.3151479,0.30200621 1.9059261,0.135839 1.5270816,0.135839 1.2268278,0.135839 0.94517001,0.23725265 0.68992316,0.43722373 0.31647007,0.72984626 0.13012345,1.0991104 0.13596617,1.5347377 0.1560591,3.0264563 2.5132265,4.7866329 2.6135515,4.8608372 l 0.1040467,0.076961 0.1040524,-0.076961 C 2.9219932,4.7866329 5.2791638,3.0264563 5.2992348,1.5347377 5.3050684,1.0991104 5.1187295,0.72984626 4.7452664,0.43722373 Z" style="stroke-width:0.271678;stroke-dasharray:none;stroke-opacity:1" />
+    </svg>
+  </span>
+}

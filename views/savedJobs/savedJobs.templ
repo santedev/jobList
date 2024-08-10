@@ -1,0 +1,17 @@
+package savedJobs
+
+import "jobList/views/components"
+
+import (
+ "github.com/markbates/goth"
+ "jobList/views/layouts"
+ )
+
+templ Index(user goth.User){
+ @layouts.Base(true, user){
+  <h1 class="text-3xl my-4 text-center">saved offers</h1>
+  <div class="grid grid-cols-1 md:grid-cols-2 2xl:max-w-4xl gap-3 mx-5 md:mx-14 2xl:mx-auto" id="container"></div>
+  @components.ImageLoader()
+  <script src="/public/scripts/getSavedJobs.js"></script>
+ }
+}

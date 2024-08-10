@@ -1,0 +1,68 @@
+.htmx-indicator {
+  opacity: 0;
+  transition: opacity 500ms ease-in;
+}
+.htmx-request .htmx-indicator {
+  opacity: 1;
+}
+.htmx-request.htmx-indicator {
+  opacity: 1;
+}
+.title-main {
+  font-size: clamp(2.75rem, 4vw, 3rem);
+  text-wrap: balance;
+}
+.leading-100 {
+  line-height: 100%;
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fade-in 0.2s ease forwards;
+}
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+#loader {
+  border: 0.25rem solid #bbccd8;
+  border-top: 0.25rem solid #3498db;
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.favorite-icon {
+  fill: #00000000;
+  stroke: #ffffff;
+  min-height: 1.125rem;
+  min-width: 1.25rem;
+  max-height: 1.125rem;
+  max-width: 1.25rem;
+}
+.favorite-icon.saved {
+  fill: #4466f2;
+  stroke: #00000000;
+}
+.favorite-icon.unsaved {
+  fill: none;
+  stroke: #ffffff;
+}
+
+#bg-image {
+  background-image: url(https://images.unsplash.com/photo-1616763355603-9755a640a287?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80);
+}

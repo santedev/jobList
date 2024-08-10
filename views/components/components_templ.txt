@@ -1,0 +1,43 @@
+<a href=\"
+\" class=\"flex fade-in flex-col justify-between border p-3 w-full\"><div class=\"flex flex-col\">
+<div class=\"flex justify-between\"><h1 class=\"text-2xl mr-2 font-bond\">
+</h1>
+</div>
+<h2 class=\"text-sm text-slate-400\">
+</h2>
+<h3 class=\"text\">
+</h3>
+<p class=\"text-base\" content=\"
+\" clicked=\"false\">
+ <span class=\"text-slate-400\" onCLick=\"readMore(event, this)\">read more...</span></p>
+<p class=\"text-base\" content=\"
+\">
+</p>
+<div class=\"p-1 invisible\" role=\"none\">-</div><p class=\"text-base\" content=\"
+\" clicked=\"false\">
+ <span class=\"text-slate-400\" onCLick=\"readMore(event, this)\">read more...</span></p>
+<h3 class=\"text-base\" content=\"
+\">
+</h3>
+<h3>
+</h3>
+<h3 class=\"text-xs\">
+</h3>
+<p class=\"text-xs\">
+</p>
+</div>
+<div class=\"flex justify-between\"><h4 class=\"text-slate-400 text-xs\">
+</h4>
+<h4 class=\"text-slate-400 font-light text-xs\">
+</h4>
+</div>
+</a>
+<div class=\"htmx-indicator mb-2 mx-auto aspect-square\" id=\"loader\"></div>
+<form class=\"invisible formFetchJobs w-full p-1\" hx-target=\"#container\" hx-indicator=\"#loader\" hx-ext=\"remove\" hx-vals=\"
+\">delete</form>
+<h1 class=\"text-center text-slate-400 mx-auto w-full\">no jobs found 404</h1>
+<span class=\"pointer pt-1.5 pr-1\" path=\"
+\" hx-vals=\"
+\" onCLick=\"onClickSavedJobs(event, this)\">
+<svg class=\"
+\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:svg=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 5.4352005 5.1067581\" height=\"18.791426\" width=\"20.000002\" xml:space=\"preserve\"><path d=\"M 4.7452664,0.43722373 C 4.4900296,0.23725265 4.2083742,0.135839 3.9081177,0.135839 3.5292741,0.135839 3.1200534,0.30200621 2.7175982,0.61798821 2.3151479,0.30200621 1.9059261,0.135839 1.5270816,0.135839 1.2268278,0.135839 0.94517001,0.23725265 0.68992316,0.43722373 0.31647007,0.72984626 0.13012345,1.0991104 0.13596617,1.5347377 0.1560591,3.0264563 2.5132265,4.7866329 2.6135515,4.8608372 l 0.1040467,0.076961 0.1040524,-0.076961 C 2.9219932,4.7866329 5.2791638,3.0264563 5.2992348,1.5347377 5.3050684,1.0991104 5.1187295,0.72984626 4.7452664,0.43722373 Z\" style=\"stroke-width:0.271678;stroke-dasharray:none;stroke-opacity:1\"></path></svg></span>
